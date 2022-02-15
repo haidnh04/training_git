@@ -17,14 +17,16 @@
     <form action="" method="POST">
         <div class="mb-3">
             <label for="">Tên sản phẩm</label>
-            <input type="text" class="form-control" name="product-name" placeholder="Tên sản phẩm...">
+            <input type="text" class="form-control" name="product-name" placeholder="Tên sản phẩm..."
+                value="{{ old('product-name') }}">
             @error('product-name')
                 <span style="color:red;">{{ $message }}</span>
             @enderror
         </div>
         <div class="mb-3">
             <label for="">Giá sản phẩm</label>
-            <input type="text" class="form-control" name="product-price" placeholder="Giá sản phẩm...">
+            <input type="text" class="form-control" name="product-price" placeholder="Giá sản phẩm..."
+                value="{{ old('product-price') }}">
             @error('product-price')
                 <span style="color:red;">{{ $message }}</span>
             @enderror
