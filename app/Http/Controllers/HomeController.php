@@ -105,6 +105,7 @@ class HomeController extends Controller
             'product-name.min' => 'Bạn cần nhập tên đủ 6 ký tự',
             'product-price.required' => 'Bạn cần nhập giá',
             'product-price.integer' => 'Bạn cần nhập giá là số'
+              //avacaaddaw đă
         ];
 
         $request->validate($rules, $message);
