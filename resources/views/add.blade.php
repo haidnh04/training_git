@@ -10,9 +10,13 @@
     <button type="button" class="show">Thông báo</button> --}}
     <h1>Thêm sản phẩm</h1>
 
-    @if ($errors->any())
+    {{-- @if ($errors->any())
         <div class="alert alert-danger">Dữ liệu nhập vào không hợp lệ. Vui lòng kiểm tra lại</div>
-    @endif
+    @endif --}}
+
+    @error('msg')
+        <div class="alert alert-danger text-center">{{ $message }}</div>
+    @enderror
 
     <form action="" method="POST">
         <div class="mb-3">

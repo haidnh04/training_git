@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\DB;
 
 use DB;
+use App\Http\Requests\ProductRequest;
+
 
 class HomeController extends Controller
 {
@@ -92,9 +94,10 @@ class HomeController extends Controller
     //     //dd($request);
     // }
 
-    public function postAdd(Request $request)
+    public function postAdd(Request $request) //ProductRequest $request) //(Request $request)
     {
-        //dd($request);
+        // $rule
+        // dd($request);
         $rules = [
             'product-name' => 'required|min:6',
             'product-price' => 'required|integer'
