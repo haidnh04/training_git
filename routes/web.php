@@ -12,6 +12,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MyController;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\Schema;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +24,7 @@ use Illuminate\Http\Response;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//=============================================================================
 
 //lấy từ bên model CategoriesController sang 
 // (Client Route)
@@ -52,12 +55,16 @@ Route::middleware('auth.admin')->prefix('categories')->group(function () {
     Route::post('/upload', [CategoriesController::class, 'handleFile'])->name('categories.upload');
 });
 
+//=============================================================================
+
 //Admin router 
 //Thêm middleware cho cả group => lấy tên đã đăng ký bên phần middleware
 Route::middleware('auth.admin')->prefix('admin')->group(function () {
     Route::get('/', [DashBoardController::class, 'index']);
     Route::resource('products', ProductsController::class);
 });
+
+//=============================================================================
 
 
 //Home
@@ -69,8 +76,9 @@ Route::get('add', [HomeController::class, 'getAdd'])->name('add')->middleware('a
 // Route::post('add', [HomeController::class, 'handleAdd']);
 Route::post('add', [HomeController::class, 'postAdd'])->name('postadHome');
 
+//=============================================================================
 
-//Users
+//Users (có database)
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/', [UsersController::class, 'index'])->name('index');
 
@@ -91,9 +99,15 @@ Route::prefix('users')->name('users.')->group(function () {
 //     }
 // );
 
+
+//=============================================================================
+
 //Cookie
 Route::get('setcookie', [MyController::class, 'setCookie']);
 Route::get('getcookie', [MyController::class, 'getCookie']);
+
+
+//=============================================================================
 
 //upload File
 Route::get('uploadfile', function () {
@@ -102,12 +116,64 @@ Route::get('uploadfile', function () {
 
 Route::post('uploadfile', [MyController::class, 'postFile'])->name('myFile');
 
-//test
-Route::get('home113', function () {
-    return response('Hello World', 200)
-        ->header('Content-Type', 'text/plain');
+//=============================================================================
+//Database migrate 
+//-> thêm bảng
+Route::get('database', function () {
+    Schema::create('loaisanpham', function ($table) {
+        $table->increments('id');
+        $table->string('ten', 200)->nullable(); //Hàm nvarchar có 200 ký tự và cho phép null
+        $table->timestamps();
+    });
+
+    Schema::create('sanpham', function ($table) {
+        $table->increments('id');
+        $table->string('ten', 200)->nullable(); //Hàm nvarchar có 200 ký tự và cho phép null
+        $table->float('gia')->nullable();
+        $table->integer('soluong')->nullable()->default(0); // set default số lượng là 0
+        $table->integer('id_loaisanpham')->unsigned(); //set là unsigned để làm khóa phụ
+        $table->foreign('id_loaisanpham')->references('id')->on('loaisanpham');
+        // => nối trường id_loaisanpham bảng sanpham với id bảng loaisanpham
+        $table->timestamps();
+    });
+
+    echo 'đã thực hiện lệnh tảo bảng';
 });
 
+//->Sửa bảng (xóa 1 cột)
+Route::get('database/suabang', function () {
+    Schema::table('sanpham', function ($table) {
+        $table->dropColumn('gia');
+    });
+});
+
+//->Sửa bảng (xóa 1 cột)
+Route::get('database/suabang', function () {
+    Schema::table('sanpham', function ($table) {
+        $table->dropColumn('gia');
+    });
+});
+
+//->Sửa bảng (thêm 1 cột)
+Route::get('database/suabangthem', function () {
+    Schema::table('sanpham', function ($table) {
+        $table->float('gia')->nullable();
+    });
+});
+
+//->Sửa bảng (đổi tên bảng)
+Route::get('database/doiten', function () {
+    Schema::rename('123', 'brand');
+    echo 'đã đổi tên bảng';
+});
+
+//->Xóa bảng
+Route::get('database/xoabang', function () {
+    Schema::dropIfExists('brand');
+    echo 'Xóa bảng thành công';
+});
+
+//=============================================================================
 
 // Route::get('/home', function () {
 //     return view('home');

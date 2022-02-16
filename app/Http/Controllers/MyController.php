@@ -35,11 +35,25 @@ class MyController extends Controller
     public function postFile(Request $request)
     {
         if ($request->hasFile('myFile1')) {
-            $request->file('myFile1')->move(
-                'assets\clients\images', //Thư mục lưu file
-                'myFile.jpg' //Tên file
-            );
-            echo 'Upload file thành công';
+
+            //Trỏ đến file
+            $request = $request->file('myFile1');
+
+            //Kiểm tra đuôi file có phải .jpg không
+            if ($request->getClientOriginalExtension('myFile1') == "JPG") {
+
+                //Định nghĩa tên file
+                $fileName = $request->getClientOriginalName('myFile1');
+
+                //Di chuyển đến phần cấu hình file để upload
+                $request->move(
+                    'assets\clients\images', //Thư mục lưu file
+                    $fileName, //Tên file
+                );
+                echo 'Upload file thành công với đuôi jpg';
+            } else {
+                echo 'Bạn upload file không thanh công vì không phải định dạng đuổi .JPG';
+            }
         } else {
             echo 'Upload file không thành công';
         }
