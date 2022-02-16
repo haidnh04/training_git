@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use DB;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Http\Response;
 
 
 class HomeController extends Controller

@@ -32,7 +32,7 @@
                 <span style="color:red;">{{ $message }}</span>
             @enderror
         </div>
-
+        
         <button stype="submit" class="btn btn-primary">Cập nhật</button>
         <a href="{{ route('users.index') }}" class="btn btn-warning">Quay lại</a>
         @csrf

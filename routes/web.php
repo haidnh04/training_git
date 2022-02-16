@@ -9,6 +9,8 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\MyController;
+use Illuminate\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +59,8 @@ Route::middleware('auth.admin')->prefix('admin')->group(function () {
     Route::resource('products', ProductsController::class);
 });
 
+
+//Home
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth.admin');
 Route::get('/home1', [HomeController::class, 'index1'])->name('home1')->middleware('auth.admin');
 Route::get('/san-pham', [HomeController::class, 'products'])->name('products')->middleware('auth.admin');
@@ -65,6 +69,8 @@ Route::get('add', [HomeController::class, 'getAdd'])->name('add')->middleware('a
 // Route::post('add', [HomeController::class, 'handleAdd']);
 Route::post('add', [HomeController::class, 'postAdd'])->name('postadHome');
 
+
+//Users
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/', [UsersController::class, 'index'])->name('index');
 
@@ -77,7 +83,30 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::get('delete/{id}', [UsersController::class, 'delete'])->name('delete');
 });
 
+// Route::get(
+//     '/demo_response',
+//     function () {
+//         $response = new Response();
+//         dd($response);
+//     }
+// );
 
+//Cookie
+Route::get('setcookie', [MyController::class, 'setCookie']);
+Route::get('getcookie', [MyController::class, 'getCookie']);
+
+//upload File
+Route::get('uploadfile', function () {
+    return view('myFile');
+});
+
+Route::post('uploadfile', [MyController::class, 'postFile'])->name('myFile');
+
+//test
+Route::get('home113', function () {
+    return response('Hello World', 200)
+        ->header('Content-Type', 'text/plain');
+});
 
 
 // Route::get('/home', function () {
