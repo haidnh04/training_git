@@ -6,6 +6,7 @@ use App\View\Components\Alert;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use App\View\Components\Input\Button;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,5 +50,8 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('package-name', Alert::class);
         Blade::component('button', Button::class);
+
+        //Sử dụng padginh cho bootstrap
+        Paginator::useBootstrap();
     }
 }

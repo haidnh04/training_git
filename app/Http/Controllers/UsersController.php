@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-
+use DB;
 use App\Models\Users;
+
+use Illuminate\Support\Facades\Auth;
 
 
 class UsersController extends Controller
@@ -25,8 +28,9 @@ class UsersController extends Controller
         //$this->user->learnQueryBuilder();
 
         $usersList = $this->user->getAllUser();
+        $usersList = Users::paginate(2);
 
-        return view('Client.Users.lists', compact('title', 'usersList'));
+        return view('Client.Users.lists', compact('title', ['usersList']));
     }
 
     //Phần controller thêm mới 
@@ -143,5 +147,52 @@ class UsersController extends Controller
             $msg = 'Liên kết không tồn tại';
         }
         return redirect()->route('users.index')->with('msg', $msg);
+    }
+
+    public function getAccept()
+    {
+        return view('Client.Users.dangNhap');
+    }
+
+    public function postAccept(Request $request)
+    {
+        // $username = $request['username'];
+        // $pass = $request['password'];
+        // if (Auth::login('users', ['username' => $username, 'password' => $pass])) {
+        //     return view('Client.Users.lists');
+        // } else {
+        //     return view('Client.Users.dangNhap');
+        // }
+
+
+    }
+
+    public function getSearch()
+    {
+        // if (!empty($id)) {
+        //     $userDetail = $this->user->getDetail($id);
+        //     if (!empty($userDetail[0])) {
+        //         //Gọi session ra đẻ lưu id trên serve tranh bị sửa id
+        //         $request->session()->put('id', $id);
+        //         $userDetail = $userDetail[0];
+        //     } else {
+        //         return redirect()->route('users.index')->with('msg', 'Người dùng không tồn tại');
+        //     }
+        // } else {
+        //     return redirect()->route('users.index')->with('msg', 'Liên kết không tồn tại');
+        // }
+        // return view('Client.Users.edit', compact('title', 'userDetail'));
+    }
+
+    public function postSearch(Request $request)
+    {
+        // $title1 = 'Danh sách người dùng';
+
+        //$this->user->learnQueryBuilder();
+        $tukhoa = $request->tukhoa;
+        $usersSearch = $this->user->searchUser($tukhoa);
+        $usersSearch = Users::paginate(2);
+
+        return view('Client.Users.timkiem', compact('usersSearch'));
     }
 }

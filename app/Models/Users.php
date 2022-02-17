@@ -12,12 +12,41 @@ class Users extends Model
 
     protected $table = 'users';
 
+    //cách gõ sql thuần
+    // public function getAllUser()
+    // {
+    //     //câu lệnh select trong db dùng trong model
+    //     $users = DB::select('SELECT * FROM users ORDER BY create_at DESC');
+    //     return $users;
+    // }
+
     public function getAllUser()
     {
-        //câu lệnh select trong db dùng trong model
-        $users = DB::select('SELECT * FROM users ORDER BY create_at DESC');
+
+        //DB::enableQueryLog();
+        $users = DB::table('users')
+            ->select('*')
+            ->orderBy('create_at', 'desc')
+            //->paginate(1)
+            ->get();
+
         return $users;
     }
+
+    public function searchUser($tukhoa)
+    {
+
+        //DB::enableQueryLog();
+        $usersSearch = DB::table('users')
+            ->select('*')
+            ->where('fullname', 'like', '%' . $tukhoa . '%')
+            ->orwhere('email', 'like', '%?%')
+            ->get();
+
+        return $usersSearch;
+    }
+
+
 
     public function addUser($data)
     {

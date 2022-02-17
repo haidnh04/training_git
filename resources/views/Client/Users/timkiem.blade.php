@@ -1,8 +1,8 @@
 @extends('layouts.client')
 
-@section('title')
+{{-- @section('title')
     {{ $title }}
-@endsection
+@endsection --}}
 
 @section('content1')
     {{-- demo truoc do --}}
@@ -16,16 +16,6 @@
     @else
     <b>Không phải môi trường dev</b>
     @endenv --}}
-    <h1>{{ $title }}</h1>
-
-    <form action="timkiem" class="navbar-form navbar-left" role="search" method="POST">
-        <div class="form-group">
-            <input type="text" name="tukhoa" class="form-control" placeholder="Tìm kiếm....">
-        </div>
-        <button type="submit" class="btn btn-primary" style="margin-top: 1%;">Tìm kiếm</button>
-        @csrf
-    </form>
-    <hr>
 
     <a href="{{ route('users.add') }}" class="btn btn-primary">Thêm người dùng</a>
     <hr>
@@ -41,8 +31,8 @@
             </tr>
         </thead>
         <tbody>
-            @if (!empty($usersList))
-                @foreach ($usersList as $key => $item)
+            @if (!empty($usersSearch))
+                @foreach ($usersSearch as $key => $item)
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $item->fullname }}</td>
@@ -69,7 +59,7 @@
     <table>
         <tr>
             <td>
-                {!! $usersList->links() !!}
+                {!! $usersSearch->links() !!}
             </td>
         </tr>
     </table>

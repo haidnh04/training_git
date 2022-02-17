@@ -89,6 +89,12 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::post('update', [UsersController::class, 'postEdit'])->name('postEdit');
 
     Route::get('delete/{id}', [UsersController::class, 'delete'])->name('delete');
+
+    Route::get('dangnhap', [UsersController::class, 'getAccept'])->name('dangnhap');
+    Route::post('dangnhap', [UsersController::class, 'postAccept'])->name('login');
+
+    Route::get('timkiem', [UsersController::class, 'getSearch']);
+    Route::post('timkiem', [UsersController::class, 'postSearch'])->name('timkiem');
 });
 
 // Route::get(
@@ -172,6 +178,8 @@ Route::get('database/xoabang', function () {
     Schema::dropIfExists('brand');
     echo 'Xóa bảng thành công';
 });
+
+
 
 //=============================================================================
 
