@@ -40,7 +40,7 @@ class Users extends Model
         $usersSearch = DB::table('users')
             ->select('*')
             ->where('fullname', 'like', '%' . $tukhoa . '%')
-            ->orwhere('email', 'like', '%?%')
+            ->orwhere('email', 'like', '%' . $tukhoa . '%')
             ->get();
 
         return $usersSearch;
@@ -53,6 +53,18 @@ class Users extends Model
         //câu lệnh insert trong db dùng trong model
         DB::insert('INSERT INTO users (fullname, email, create_at) VALUES (?, ?, ?)', $data);
     }
+
+    // public function addUser($name, $email, $create_at)
+    // {
+    //     $ketqua = DB::table('users')->insert([
+    //         'fullname' => $name,
+    //         'email' => $email,
+    //         'create_at' => $create_at,
+    //         //$data
+    //     ]);
+
+    //     return $ketqua;
+    // }
 
     public function getDetail($id)
     {

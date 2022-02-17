@@ -18,12 +18,13 @@
     @endenv --}}
     <h1>{{ $title }}</h1>
 
-    <form action="timkiem" class="navbar-form navbar-left" role="search" method="POST">
+    <form action="{{ route('users.timkiem113') }}" class="navbar-form navbar-left" role="search" method="POST">
         <div class="form-group">
-            <input type="text" name="tukhoa" class="form-control" placeholder="Tìm kiếm....">
+            <input type="text" name="tukhoaTimKiem" class="form-control" placeholder="Tìm kiếm....">
+            @csrf
         </div>
         <button type="submit" class="btn btn-primary" style="margin-top: 1%;">Tìm kiếm</button>
-        @csrf
+
     </form>
     <hr>
 

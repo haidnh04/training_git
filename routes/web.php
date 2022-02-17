@@ -93,9 +93,14 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::get('dangnhap', [UsersController::class, 'getAccept'])->name('dangnhap');
     Route::post('dangnhap', [UsersController::class, 'postAccept'])->name('login');
 
-    Route::get('timkiem', [UsersController::class, 'getSearch']);
-    Route::post('timkiem', [UsersController::class, 'postSearch'])->name('timkiem');
+    // Route::get('timkiem', [UsersController::class, 'getSearch']);
+     Route::post('timkiem', [UsersController::class, 'postSearch'])->name('timkiem113');
+
 });
+
+//Route::post('timkiem', [UsersController::class, 'postSearch'])->name('timkiem');
+
+// Route::get('timkiem', [UsersController::class, 'getSearch']);
 
 // Route::get(
 //     '/demo_response',

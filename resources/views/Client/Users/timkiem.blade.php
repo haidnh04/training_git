@@ -56,13 +56,8 @@
             @endif
         </tbody>
     </table>
-    <table>
-        <tr>
-            <td>
-                {!! $usersSearch->links() !!}
-            </td>
-        </tr>
-    </table>
+    <a href="{{ route('users.index') }}" class="btn btn-warning">Quay lại</a>
+
     {{-- <x-alert type="danger" content="thế cơ à" />
     <x-button/> --}}
 @endsection
